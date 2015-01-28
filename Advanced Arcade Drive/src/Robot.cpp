@@ -36,8 +36,12 @@ public:
 	{
 		while (IsOperatorControl() && IsEnabled())
 		{
+
+
+
 			//Calculate SpeedModifier using given input from throttle
-			SpeedModifier = -0.5*(stick.GetThrottle() - 1);
+			//SpeedModifier = -0.5*(stick.GetThrottle() - 1);
+			SpeedModifier = (stick.GetThrottle() - 1)/-2;
 
 			//Calculate SpeedModifiers for the left and right motors based on inputs
 			SpeedModifierLeft = stick.GetY() - stick.GetX();
@@ -51,6 +55,12 @@ public:
 			rearLeft.Set(SpeedModifier*SpeedModifierLeft);
 			frontRight.Set(SpeedModifier*SpeedModifierRight);
 			rearRight.Set(SpeedModifier*SpeedModifierRight);
+
+			SmartDashboard:: PutNumber("SpeedModifier", SpeedModifier);
+			SmartDashboard:: PutNumber("SpeedModifierLeft", SpeedModifierLeft);
+			SmartDashboard:: PutNumber("SpeedModifierRight", SpeedModifierRight);
+			SmartDashboard:: PutNumber("Total speed Left", SpeedModifier * SpeedModifierLeft);
+			SmartDashboard:: PutNumber("Total speed Right", SpeedModifier * SpeedModifierRight);
 
 			Wait(UpdatePeriod);
 		}
