@@ -1,4 +1,5 @@
 #include "WPILib.h"
+#include "ToteLifter.h"
 
 class Robot: public SampleRobot
 {
@@ -40,7 +41,6 @@ public:
 
 
 			//Calculate SpeedModifier using given input from throttle
-			//SpeedModifier = -0.5*(stick.GetThrottle() - 1);
 			SpeedModifier = (stick.GetThrottle() - 1)/-2;
 
 			//Calculate SpeedModifiers for the left and right motors based on inputs
