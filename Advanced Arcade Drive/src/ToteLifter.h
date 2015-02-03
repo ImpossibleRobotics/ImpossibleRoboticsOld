@@ -10,13 +10,13 @@
 
 class ToteLifter {
 
-	Talon toteLift;
+	Victor toteLift;
 	int stackCounter;
 	DigitalInput topMax, bottomMax, haltPoint;
 
 public:
 
-	ToteLifter():
+	ToteLifter(int portMotor = 5, int portTopMax = 0, int portBottomMax = 1, int portHaltPoint = 2):
 		toteLift(5),
 		topMax(0),
 		bottomMax(1),

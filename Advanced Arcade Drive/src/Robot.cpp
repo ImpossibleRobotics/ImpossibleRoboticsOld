@@ -4,7 +4,10 @@
 class Robot: public SampleRobot
 {
 	Talon frontLeft, frontRight, rearLeft, rearRight;
-	Joystick stick;
+	Joystick arcadeStick, gamePad;
+
+	ToteLifter toteLift;
+
 
 	double ExpirationTime = 0.1;
 	double UpdatePeriod = 0.005;
@@ -18,7 +21,9 @@ public:
 		frontRight(3),
 		rearLeft(0),
 		rearRight(2),
-		stick(0)
+		arcadeStick(0),
+		gamePad(1),
+		toteLift(5, 0, 1, 2)
 	{
 		//Enable safety for all motors
 		frontLeft.SetSafetyEnabled(true);
@@ -37,15 +42,26 @@ public:
 	{
 		while (IsOperatorControl() && IsEnabled())
 		{
-
+			if(gamePad.GetRawButton(1) == 1)
+			{
+				toteLift.StackUp();
+			}
+			if(gamePad.GetRawButton(2) == 1)
+			{
+				toteLift.StackDown();
+			}
+			if(gamePad.GetRawButton(3) == 1)
+			{
+				toteLift.StackTotes();
+			}
 
 
 			//Calculate SpeedModifier using given input from throttle
-			SpeedModifier = (stick.GetThrottle() - 1)/-2;
+			SpeedModifier = (arcadeStick.GetThrottle() - 1)/-2;
 
 			//Calculate SpeedModifiers for the left and right motors based on inputs
-			SpeedModifierLeft = stick.GetY() - stick.GetX();
-			SpeedModifierRight = stick.GetY() + stick.GetX();
+			SpeedModifierLeft = arcadeStick.GetY() - arcadeStick.GetX();
+			SpeedModifierRight = arcadeStick.GetY() + arcadeStick.GetX();
 
 			//Invert Left Motors
 			SpeedModifierLeft *= -1;
@@ -65,6 +81,7 @@ public:
 			Wait(UpdatePeriod);
 		}
 	}
+
 };
 
 START_ROBOT_CLASS(Robot);
