@@ -16,11 +16,11 @@ class ToteLifter {
 
 public:
 
-	ToteLifter(int portMotor = 5, int portTopMax = 0, int portBottomMax = 1, int portHaltPoint = 2):
-		toteLift(5),
-		topMax(0),
-		bottomMax(1),
-		haltPoint(2)
+	ToteLifter(int portMotor = 4, int portTopMax = 0, int portBottomMax = 1, int portHaltPoint = 2):
+		toteLift(portMotor),
+		topMax(portTopMax),
+		bottomMax(portBottomMax),
+		haltPoint(portHaltPoint)
 	{
 		stackCounter = 0;
 	}
