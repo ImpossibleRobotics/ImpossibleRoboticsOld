@@ -11,8 +11,10 @@
 class ToteLifter {
 
 	Victor toteLift;
-	int stackCounter;
 	DigitalInput topMax, bottomMax, haltPoint;
+	int stackCounter;
+	bool stackingDown;
+	bool inUse;
 
 public:
 
@@ -20,47 +22,68 @@ public:
 		toteLift(portMotor),
 		topMax(portTopMax),
 		bottomMax(portBottomMax),
-		haltPoint(portHaltPoint)
+		haltPoint(portHaltPoint),
+		stackCounter(0),
+		stackingDown(false),
+		inUse(false)
 	{
-		stackCounter = 0;
+	}
+
+	void CheckLift()
+	{
+		SmartDashboard:: PutBoolean("Top of the lift", topMax.Get());
+		SmartDashboard:: PutBoolean("Bottom of the lift", bottomMax.Get());
+		SmartDashboard:: PutBoolean("Halt point of the lift", haltPoint.Get());
+		SmartDashboard:: PutNumber("Stack Counter", stackCounter);
+		if(stackingDown)
+		{
+			if((topMax.Get() || bottomMax.Get()) && inUse)
+			{
+				Stop();
+				stackingDown = false;
+				inUse = false;
+			}
+		}
+		else
+		{
+			if((haltPoint.Get() || topMax.Get() || bottomMax.Get()) && inUse)
+			{
+				Stop();
+				inUse = false;
+			}
+		}
 	}
 
 	void StackUp()
 	{
-		if(!topMax.Get())
+		if(/*!topMax.Get() &&*/ inUse == false)
 		{
+			inUse = true;
 			toteLift.Set(0.5);
-			Wait(0.001);
-			while(!haltPoint.Get() && !topMax.Get())
-			{
-				Wait(0.001);
-			}
-			toteLift.Set(0);
 			stackCounter++;
 		}
 	}
 
 	void StackDown()
 	{
-		if(!bottomMax.Get())
+		if(/*!bottomMax.Get() &&*/ inUse == false && stackCounter > 0)
 		{
+			inUse = true;
 			toteLift.Set(-0.5);
-			Wait(0.001);
-			while(!haltPoint.Get() && !bottomMax.Get())
-			{
-				Wait(0.001);
-			}
-			toteLift.Set(0);
 			stackCounter--;
 		}
 	}
 
 	void StackTotes()
 	{
-		for(int i = 0; i < stackCounter; i++)
-		{
-			StackDown();
-		}
+		StackDown();
+		stackingDown = true;
+		stackCounter = 0;
+	}
+
+	void Stop()
+	{
+		toteLift.Set(0);
 	}
 };
 
