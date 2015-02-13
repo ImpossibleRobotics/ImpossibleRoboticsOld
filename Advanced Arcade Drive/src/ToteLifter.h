@@ -13,8 +13,10 @@ class ToteLifter {
 	Victor toteLift;
 	DigitalInput topMax, bottomMax, haltPoint;
 	int stackCounter;
+	double switchDelay;
 	bool stackingDown;
 	bool inUse;
+	Timer liftTimer;
 
 public:
 
@@ -24,8 +26,10 @@ public:
 		bottomMax(portBottomMax),
 		haltPoint(portHaltPoint),
 		stackCounter(0),
+		switchDelay(0.5),
 		stackingDown(false),
-		inUse(false)
+		inUse(false),
+		liftTimer()
 	{
 	}
 
@@ -37,22 +41,29 @@ public:
 		SmartDashboard:: PutBoolean("Is the elevator in use", inUse);
 		SmartDashboard:: PutNumber("Stack Counter", stackCounter);
 		SmartDashboard:: PutNumber("Motor Lift", toteLift.Get());
-		if(stackingDown)
+		SmartDashboard:: PutNumber("Lift Timer", liftTimer.Get());
+		if(liftTimer.Get() > switchDelay)
 		{
-			if((!topMax.Get() || !bottomMax.Get()) && inUse)
+			if(stackingDown)
 			{
-				Stop();
-				stackingDown = false;
-				inUse = false;
+				if((!topMax.Get() || !bottomMax.Get()) && inUse)
+				{
+					Stop();
+					stackingDown = false;
+					inUse = false;
+					liftTimer.Reset();
+				}
 			}
-		}
-		else
-		{
-			if((!haltPoint.Get() || !topMax.Get() || !bottomMax.Get()) && inUse)
+			else
 			{
-				Stop();
-				inUse = false;
+				if((!haltPoint.Get() || !topMax.Get() || !bottomMax.Get()) && inUse)
+				{
+					Stop();
+					inUse = false;
+					liftTimer.Reset();
+				}
 			}
+			liftTimer.Stop();
 		}
 	}
 
@@ -60,8 +71,9 @@ public:
 	{
 		if(topMax.Get() && inUse == false)
 		{
+			liftTimer.Start();
 			inUse = true;
-			toteLift.Set(0.5);
+			toteLift.Set(0.500);
 			stackCounter++;
 		}
 	}
@@ -70,8 +82,9 @@ public:
 	{
 		if(bottomMax.Get() && inUse == false && stackCounter > 0)
 		{
+			liftTimer.Start();
 			inUse = true;
-			toteLift.Set(-0.5);
+			toteLift.Set(-0.500);
 			stackCounter--;
 		}
 	}

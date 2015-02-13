@@ -8,6 +8,8 @@ class Robot: public SampleRobot
 
 	ToteLifter toteLift;
 
+	Timer autoTimer;
+
 
 	double ExpirationTime = 0.1;
 	double UpdatePeriod = 0.005;
@@ -23,7 +25,8 @@ public:
 		rearRight(2),
 		arcadeStick(0),
 		gamePad(1),
-		toteLift(4, 0, 1, 2)
+		toteLift(4, 0, 1, 2),
+		autoTimer()
 	{
 		//Enable safety for all motors
 		frontLeft.SetSafetyEnabled(true);
@@ -37,46 +40,14 @@ public:
 		rearLeft.SetExpiration(ExpirationTime);
 		rearRight.SetExpiration(ExpirationTime);
 	}
-	// drive functions
-	 void forward(int time, float power) {
-	  Timer *autonTimer;
-	  autonTimer = new Timer();
-	  autonTimer->Start();
 
-	  while(autonTimer->Get() > time){
-	   frontLeft.Set(-1.2*power);
-	   rearLeft.Set(-1.2*power);
-	   frontRight.Set(power);
-	   rearRight.Set(power);
-	  }
-	  autonTimer->Reset();
-	 }
-
-	 void left(int time, float power) {
-	  Timer *autonTimer;
-	  autonTimer = new Timer();
-	  autonTimer->Start();
-
-	  while(autonTimer->Get() > time){
-	   frontLeft.Set(power);
-	   rearLeft.Set(power);
-	   frontRight.Set(power);
-	   rearRight.Set(power);
-	  }
-	  autonTimer->Reset();
-	 }
-
- void right(int time, int power){
-	  left(time, -power);
-	 }
-
-	 void Autonomous(){
-	  forward(1, 0.4);
-	  toteLift.StackUp();
-	  forward(1,0);
-	  toteLift.StackTotes();
-	  forward(1,-0.2);
-	 }
+	void Autonomous()
+	{
+		DriveForward(2, 0.2);
+		//TurnLeft(2.0, 0.5);
+		//TurnRight(2.0, 0.5);
+		DriveBackward(2, 0.2);
+	}
 
 	void OperatorControl()
 	{
@@ -122,6 +93,54 @@ public:
 
 			Wait(UpdatePeriod);
 		}
+	}
+
+	void DriveForward(double time, float power)
+	{
+		autoTimer.Start();
+		while(autoTimer.Get() < time)
+		{
+			frontLeft.Set(power);
+		    rearLeft.Set(power);
+			frontRight.Set(-1*power);
+			rearRight.Set(-1*power);
+		}
+		autoTimer.Stop();
+		autoTimer.Reset();
+	}
+
+	void DriveBackward(double time, float power)
+		{
+			autoTimer.Start();
+			while(autoTimer.Get() < time)
+			{
+				frontLeft.Set(-1 * power);
+			    rearLeft.Set(-1 * power);
+				frontRight.Set(power);
+				rearRight.Set(power);
+			}
+			autoTimer.Stop();
+			autoTimer.Reset();
+		}
+
+	void TurnRight(double time, float power)
+	{
+		TurnLeft(time, -1*(power));
+
+	}
+
+	void TurnLeft(double time, float power)
+	{
+		autoTimer.Start();
+		while(autoTimer.Get() < time)
+		{
+			frontLeft.Set(-power);
+			rearLeft.Set(-power);
+			frontRight.Set(-power);
+			rearRight.Set(-power);
+		}
+		autoTimer.Stop();
+		autoTimer.Reset();
 	}
 
 };
