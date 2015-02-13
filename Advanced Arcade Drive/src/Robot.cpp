@@ -52,11 +52,6 @@ public:
 	  autonTimer->Reset();
 	 }
 
-
-	 void right(int time, int power){
-	  left(time, -power);
-	 }
-
 	 void left(int time, float power) {
 	  Timer *autonTimer;
 	  autonTimer = new Timer();
@@ -71,6 +66,10 @@ public:
 	  autonTimer->Reset();
 	 }
 
+ void right(int time, int power){
+	  left(time, -power);
+	 }
+
 	 void Autonomous(){
 	  forward(1, 0.4);
 	  toteLift.StackUp();
@@ -78,7 +77,6 @@ public:
 	  toteLift.StackTotes();
 	  forward(1,-0.2);
 	 }
-
 
 	void OperatorControl()
 	{
