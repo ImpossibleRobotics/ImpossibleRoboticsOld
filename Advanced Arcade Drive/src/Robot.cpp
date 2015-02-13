@@ -83,6 +83,50 @@ public:
 			Wait(UpdatePeriod);
 		}
 	}
+	// drive functions
+	 void forward(int time, float power) {
+	  time = time * 1000000;
+	  Timer *autonTimer;
+	  autonTimer = new Timer();
+	  autonTimer->Start();
+
+	  while(autonTimer->Get() > time){
+	   frontLeft.Set(-1.2*power);
+	   rearLeft.Set(-1.2*power);
+	   frontRight.Set(power);
+	   rearRight.Set(power);
+	  }
+	  autonTimer->Reset();
+	 }
+
+
+	 void right(int time, int power){
+	  left(time, -power);
+	 }
+
+	 void left(int time, float power) {
+	  time = time * 1000000;
+	  Timer *autonTimer;
+	  autonTimer = new Timer();
+	  autonTimer->Start();
+
+	  while(autonTimer->Get() > time){
+	   frontLeft.Set(power);
+	   rearLeft.Set(power);
+	   frontRight.Set(power);
+	   rearRight.Set(power);
+	  }
+	  autonTimer->Reset();
+	 }
+
+	 void Autonomous(){
+	  forward(1, 0.4);
+	  toteLift.StackUp();
+	  forward(1, 0.2);
+	  toteLift.StackTotes();
+	  forward(0.6, -0.3);
+	 }
+
 
 };
 
