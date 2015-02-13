@@ -34,10 +34,12 @@ public:
 		SmartDashboard:: PutBoolean("Top of the lift", topMax.Get());
 		SmartDashboard:: PutBoolean("Bottom of the lift", bottomMax.Get());
 		SmartDashboard:: PutBoolean("Halt point of the lift", haltPoint.Get());
+		SmartDashboard:: PutBoolean("Is the elevator in use", inUse);
 		SmartDashboard:: PutNumber("Stack Counter", stackCounter);
+		SmartDashboard:: PutNumber("Motor Lift", toteLift.Get());
 		if(stackingDown)
 		{
-			if((topMax.Get() || bottomMax.Get()) && inUse)
+			if((!topMax.Get() || !bottomMax.Get()) && inUse)
 			{
 				Stop();
 				stackingDown = false;
@@ -46,7 +48,7 @@ public:
 		}
 		else
 		{
-			if((haltPoint.Get() || topMax.Get() || bottomMax.Get()) && inUse)
+			if((!haltPoint.Get() || !topMax.Get() || !bottomMax.Get()) && inUse)
 			{
 				Stop();
 				inUse = false;
@@ -56,7 +58,7 @@ public:
 
 	void StackUp()
 	{
-		if(/*!topMax.Get() &&*/ inUse == false)
+		if(topMax.Get() && inUse == false)
 		{
 			inUse = true;
 			toteLift.Set(0.5);
@@ -66,7 +68,7 @@ public:
 
 	void StackDown()
 	{
-		if(/*!bottomMax.Get() &&*/ inUse == false && stackCounter > 0)
+		if(bottomMax.Get() && inUse == false && stackCounter > 0)
 		{
 			inUse = true;
 			toteLift.Set(-0.5);
