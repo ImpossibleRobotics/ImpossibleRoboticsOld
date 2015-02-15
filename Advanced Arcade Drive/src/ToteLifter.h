@@ -33,7 +33,7 @@ public:
 	{
 	}
 
-	void CheckLift()
+	bool CheckLift()
 	{
 		SmartDashboard:: PutBoolean("Top of the lift", topMax.Get());
 		SmartDashboard:: PutBoolean("Bottom of the lift", bottomMax.Get());
@@ -52,6 +52,7 @@ public:
 					stackingDown = false;
 					inUse = false;
 					liftTimer.Reset();
+					return true;
 				}
 			}
 			else
@@ -61,10 +62,13 @@ public:
 					Stop();
 					inUse = false;
 					liftTimer.Reset();
+					return true;
 				}
 			}
 			liftTimer.Stop();
+			return false;
 		}
+		return false;
 	}
 
 	void StackUp()

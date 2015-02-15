@@ -43,10 +43,12 @@ public:
 
 	void Autonomous()
 	{
-		DriveForward(2, 0.2);
-		//TurnLeft(2.0, 0.5);
-		//TurnRight(2.0, 0.5);
-		DriveBackward(2, 0.2);
+		//Totelift control
+		toteLift.StackUp();
+		while(!toteLift.CheckLift())
+		{
+			Wait(UpdatePeriod);
+		}
 	}
 
 	void OperatorControl()
