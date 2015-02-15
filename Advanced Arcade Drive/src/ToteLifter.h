@@ -13,6 +13,7 @@ class ToteLifter {
 	Victor toteLift;
 	DigitalInput topMax, bottomMax, haltPoint;
 	int stackCounter;
+	double motorResistance;
 	double switchDelay;
 	bool stackingDown;
 	bool inUse;
@@ -26,6 +27,7 @@ public:
 		bottomMax(portBottomMax),
 		haltPoint(portHaltPoint),
 		stackCounter(0),
+		motorResistance(0.1),
 		switchDelay(0.5),
 		stackingDown(false),
 		inUse(false),
@@ -102,7 +104,14 @@ public:
 
 	void Stop()
 	{
-		toteLift.Set(0);
+		if(stackCounter > 0)
+		{
+			toteLift.Set(motorResistance);
+		}
+		else
+		{
+			toteLift.Set(0);
+		}
 	}
 };
 
