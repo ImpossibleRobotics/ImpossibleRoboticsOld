@@ -77,7 +77,7 @@ public:
 		{
 			liftTimer.Start();
 			inUse = true;
-			toteLift.Set(0.500);
+			toteLift.Set(-0.750);
 			stackCounter++;
 		}
 	}
@@ -88,7 +88,7 @@ public:
 		{
 			liftTimer.Start();
 			inUse = true;
-			toteLift.Set(-0.500);
+			toteLift.Set(0.500);
 			stackCounter--;
 		}
 	}

@@ -97,7 +97,7 @@ public:
 		}
 	}
 
-	void DriveForward(double time, float power)
+	void forward(double time, float power)
 	{
 		autoTimer.Start();
 		while(autoTimer.Get() < time)
@@ -111,7 +111,7 @@ public:
 		autoTimer.Reset();
 	}
 
-	void DriveBackward(double time, float power)
+	void backward(double time, float power)
 		{
 			autoTimer.Start();
 			while(autoTimer.Get() < time)
@@ -125,13 +125,13 @@ public:
 			autoTimer.Reset();
 		}
 
-	void TurnRight(double time, float power)
+	void right(double time, float power)
 	{
-		TurnLeft(time, -1*(power));
+		left(time, -1*(power));
 
 	}
 
-	void TurnLeft(double time, float power)
+	void left(double time, float power)
 	{
 		autoTimer.Start();
 		while(autoTimer.Get() < time)
