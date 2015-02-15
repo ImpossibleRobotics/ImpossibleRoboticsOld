@@ -27,7 +27,7 @@ public:
 		bottomMax(portBottomMax),
 		haltPoint(portHaltPoint),
 		stackCounter(0),
-		motorResistance(0.1),
+		motorResistance(0.2),
 		switchDelay(0.5),
 		stackingDown(false),
 		inUse(false),
@@ -106,7 +106,7 @@ public:
 	{
 		if(stackCounter > 0)
 		{
-			toteLift.Set(motorResistance);
+			toteLift.Set(motorResistance * stackCounter);
 		}
 		else
 		{
