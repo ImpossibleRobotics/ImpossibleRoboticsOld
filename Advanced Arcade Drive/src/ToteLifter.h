@@ -27,7 +27,7 @@ public:
 		bottomMax(portBottomMax),
 		haltPoint(portHaltPoint),
 		stackCounter(0),
-		motorResistance(0.2), //Set motorResistance
+		motorResistance(-0.2), //Set motorResistance
 		switchDelay(0.5),
 		stackingDown(false),
 		inUse(false),
