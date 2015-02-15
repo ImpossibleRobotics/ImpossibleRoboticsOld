@@ -72,6 +72,20 @@ public:
 				toteLift.StackTotes();
 			}
 
+
+			if(gamePad.GetRawButton(5) == 1)
+			{
+				toteLift.manualUp();
+			}
+			else if(gamePad.GetRawButton(6) == 1)
+			{
+				toteLift.manualDown();
+			}
+			else
+			{
+				toteLift.Stop();
+			}
+
 			//Calculate SpeedModifier using given input from throttle
 			SpeedModifier = (arcadeStick.GetThrottle() - 1)/-2;
 			//Calculate SpeedModifiers for the left and right motors based on inputs

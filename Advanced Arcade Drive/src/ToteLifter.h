@@ -102,6 +102,24 @@ public:
 		stackCounter = 0;
 	}
 
+	void manualUp()
+	{
+		toteLift.Set(-0.750);
+		if(!haltPoint.Get())
+		{
+			stackCounter++;
+		}
+	}
+
+	void manualDown()
+	{
+		toteLift.Set(0.500);
+		if(!haltPoint.Get() && stackCounter > 0)
+		{
+			stackCounter--;
+		}
+	}
+
 	void Stop()
 	{
 		if(stackCounter > 0)
