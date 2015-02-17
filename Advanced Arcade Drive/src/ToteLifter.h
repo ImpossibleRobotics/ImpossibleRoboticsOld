@@ -79,7 +79,7 @@ public:
 		{
 			liftTimer.Start();
 			inUse = true;
-			toteLift.Set(-0.750);
+			toteLift.Set(-0.850);
 			stackCounter++;
 		}
 	}
@@ -102,9 +102,21 @@ public:
 		stackCounter = 0;
 	}
 
+	void Stop()
+	{
+		if(stackCounter > 0)
+		{
+			toteLift.Set(motorResistance * stackCounter);
+		}
+		else
+		{
+			toteLift.Set(0);
+		}
+	}
+
 	void manualUp()
 	{
-		toteLift.Set(-0.750);
+		toteLift.Set(-0.850);
 		if(!haltPoint.Get())
 		{
 			stackCounter++;
@@ -120,16 +132,10 @@ public:
 		}
 	}
 
-	void Stop()
+	void manualStop()
 	{
-		if(stackCounter > 0)
-		{
-			toteLift.Set(motorResistance * stackCounter);
-		}
-		else
-		{
-			toteLift.Set(0);
-		}
+		toteLift.Set(0);
+		inUse = false;
 	}
 };
 

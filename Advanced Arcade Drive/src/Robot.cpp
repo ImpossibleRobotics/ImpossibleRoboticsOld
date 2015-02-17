@@ -71,20 +71,24 @@ public:
 			{
 				toteLift.StackTotes();
 			}
+			if(gamePad.GetRawButton(7) == 1)
+			{
+				toteLift.manualStop();
+			}
 
 
-			if(gamePad.GetRawButton(5) == 1)
+			if(gamePad.GetRawButton(6) == 1)
 			{
 				toteLift.manualUp();
 			}
-			else if(gamePad.GetRawButton(6) == 1)
+			else if(gamePad.GetRawButton(5) == 1)
 			{
 				toteLift.manualDown();
 			}
-			else
+			/*else
 			{
 				toteLift.Stop();
-			}
+			}*/
 
 			//Calculate SpeedModifier using given input from throttle
 			SpeedModifier = (arcadeStick.GetThrottle() - 1)/-2;
