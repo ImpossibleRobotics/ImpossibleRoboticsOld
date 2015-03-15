@@ -44,11 +44,22 @@ public:
 	void Autonomous()
 	{
 		//Totelift control
-		toteLift.StackUp();
-		while(!toteLift.CheckLift())
+//		toteLift.StackUp();
+//		while(!toteLift.CheckLift())
+
+		//vooruit zonder tote, komt 177 cm vooruit
+		forward(2.5,0.3);
+
 		{
 			Wait(UpdatePeriod);
 		}
+
+		// tote on the ground start against allience wall
+//		forward(5.5,0.3);
+//
+//		{
+//			Wait(UpdatePeriod);
+//		}
 	}
 
 	void OperatorControl()
@@ -122,8 +133,8 @@ public:
 		{
 			frontLeft.Set(power);
 		    rearLeft.Set(power);
-			frontRight.Set(-1*power);
-			rearRight.Set(-1*power);
+			frontRight.Set(-0.77*power);
+			rearRight.Set(-0.77*power);
 		}
 		autoTimer.Stop();
 		autoTimer.Reset();
@@ -134,8 +145,8 @@ public:
 			autoTimer.Start();
 			while(autoTimer.Get() < time)
 			{
-				frontLeft.Set(-1 * power);
-			    rearLeft.Set(-1 * power);
+				frontLeft.Set(-1* power);
+			    rearLeft.Set(-1* power);
 				frontRight.Set(power);
 				rearRight.Set(power);
 			}

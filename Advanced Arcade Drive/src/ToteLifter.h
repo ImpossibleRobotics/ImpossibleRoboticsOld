@@ -79,7 +79,7 @@ public:
 		{
 			liftTimer.Start();
 			inUse = true;
-			toteLift.Set(-0.850);
+			toteLift.Set(0.500);
 			stackCounter++;
 		}
 	}
@@ -90,7 +90,7 @@ public:
 		{
 			liftTimer.Start();
 			inUse = true;
-			toteLift.Set(0.500);
+			toteLift.Set(-0.850);
 			stackCounter--;
 		}
 	}
@@ -116,7 +116,7 @@ public:
 
 	void manualUp()
 	{
-		toteLift.Set(-0.850);
+		toteLift.Set(0.500);
 		if(!haltPoint.Get())
 		{
 			stackCounter++;
@@ -125,7 +125,7 @@ public:
 
 	void manualDown()
 	{
-		toteLift.Set(0.500);
+		toteLift.Set(-0.850);
 		if(!haltPoint.Get() && stackCounter > 0)
 		{
 			stackCounter--;
