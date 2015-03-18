@@ -135,6 +135,7 @@ public:
 			else
 			{
 				coastTimer.Stop();
+				coastTimer.Reset();
 			}
 
 			//Set speed of motors
