@@ -9,6 +9,7 @@ class Robot: public SampleRobot
 	ToteLifter toteLift;
 
 	Timer autoTimer;
+	Timer coastTimer;
 
 
 	double ExpirationTime = 0.1;
@@ -16,6 +17,8 @@ class Robot: public SampleRobot
 	double SpeedModifier = 0;
 	double SpeedModifierLeft = 0;
 	double SpeedModifierRight = 0;
+	double TempValueSave = 0;
+	double CoastValue = 0.1;
 
 public:
 	Robot() :
@@ -26,7 +29,8 @@ public:
 		arcadeStick(0),
 		gamePad(1),
 		toteLift(4, 0, 1, 2),
-		autoTimer()
+		autoTimer(),
+		coastTimer()
 	{
 		//Enable safety for all motors
 		frontLeft.SetSafetyEnabled(true);
@@ -101,6 +105,8 @@ public:
 				toteLift.Stop();
 			}*/
 
+			TempValueSave = SpeedModifier;
+
 			//Calculate SpeedModifier using given input from throttle
 			SpeedModifier = (arcadeStick.GetThrottle() - 1)/-2;
 			//Calculate SpeedModifiers for the left and right motors based on inputs
@@ -109,6 +115,27 @@ public:
 
 			//Invert Left Motors
 			SpeedModifierLeft *= -1;
+
+			if(arcadeStick.GetTrigger())
+			{
+				if(!coastTimer.m_running)
+				{
+					coastTimer.Start();
+				}
+				else
+				{
+					TempValueSave *= CoastValue * coastTimer.Get();
+				}
+				SpeedModifier = TempValueSave;
+				if(SpeedModifier < CoastValue)
+				{
+					SpeedModifier = 0;
+				}
+			}
+			else
+			{
+				coastTimer.Stop();
+			}
 
 			//Set speed of motors
 			frontLeft.Set(SpeedModifier*SpeedModifierLeft);
