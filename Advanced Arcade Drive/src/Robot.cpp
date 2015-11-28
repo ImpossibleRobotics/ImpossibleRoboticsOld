@@ -86,20 +86,22 @@ public:
 			{
 				toteLift.StackTotes();
 			}
-			if(arcadeStick.GetRawButton(3) == 1)
-			{
-				toteLift.manualStop();
-			}
-
-
-			if(arcadeStick.GetRawButton(1) == 1)
-			{
-				toteLift.manualUp();
-			}
-			else if(arcadeStick.GetRawButton(2) == 1)
-			{
-				toteLift.manualDown();
-			}
+			if(gamePad.GetRawButton(7) == 1)
+ 			{
+ 				toteLift.manualStop();
+ 			}
+ 
+ 
+ 
+ 
+			if(gamePad.GetRawButton(6) == 1)
+ 			{
+ 				toteLift.manualUp();
+ 			}
+			else if(gamePad.GetRawButton(5) == 1)
+ 			{
+ 				toteLift.manualDown();
+ 			}
 			/*else
 			{
 				toteLift.Stop();
