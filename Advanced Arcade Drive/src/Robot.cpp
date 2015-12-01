@@ -118,27 +118,27 @@ public:
 			//Invert Left Motors
 			SpeedModifierLeft *= -1;
 
-			if(arcadeStick.GetTrigger())
-			{
-				if(!coastTimer.m_running)
-				{
-					coastTimer.Start();
-				}
-				else
-				{
-					TempValueSave *= CoastValue * coastTimer.Get();
-				}
-				SpeedModifier = TempValueSave;
-				if(SpeedModifier < CoastValue)
-				{
-					SpeedModifier = 0;
-				}
-			}
-			else
-			{
-				coastTimer.Stop();
-				coastTimer.Reset();
-			}
+//			if(arcadeStick.GetTrigger())
+//			{
+//				if(!coastTimer.m_running)
+//				{
+//					coastTimer.Start();
+//				}
+//				else
+//				{
+//					TempValueSave *= CoastValue * coastTimer.Get();
+//				}
+//				SpeedModifier = TempValueSave;
+//				if(SpeedModifier < CoastValue)
+//				{
+//					SpeedModifier = 0;
+//				}
+//			}
+//			else
+//			{
+//				coastTimer.Stop();
+//				coastTimer.Reset();
+//			}
 
 			//Set speed of motors
 			frontLeft.Set(SpeedModifier*SpeedModifierLeft);
