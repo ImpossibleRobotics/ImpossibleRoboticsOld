@@ -139,7 +139,7 @@ public:
 //				coastTimer.Stop();
 //				coastTimer.Reset();
 //			}
-
+//
 			//Set speed of motors
 			frontLeft.Set(SpeedModifier*SpeedModifierLeft);
 			rearLeft.Set(SpeedModifier*SpeedModifierLeft);
