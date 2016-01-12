@@ -1,4 +1,5 @@
 #include "WPILib.h"
+#include "IR_Lib.h"
 
 /**
  * This is a demo program showing the use of the RobotDrive class.
@@ -13,7 +14,7 @@
 class Robot: public SampleRobot
 {
 	RobotDrive myRobot; // robot drive system
-	Joystick stick; // only joystick
+	IR_Joystick stick; // only joystick
 
 public:
 	Robot() :
