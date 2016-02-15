@@ -55,6 +55,9 @@ public:
 	 */
 	void Test()
 	{
+		shooter.intake();
+		Wait(100);
+		shooter.Shoot();
 	}
 };
 
