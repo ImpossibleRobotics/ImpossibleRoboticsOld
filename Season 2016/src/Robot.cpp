@@ -58,7 +58,7 @@ public:
 	 */
 	void Test()
 	{
-		shooter.intake();
+		shooter.takeIn();
 		Wait(100);
 		shooter.Shoot();
 	}
