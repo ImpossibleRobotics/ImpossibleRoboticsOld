@@ -1,5 +1,6 @@
 #include "WPILib.h"
 #include "../IRLibrary/IRLib.h"
+#include "Shooter.cpp"
 
 
 /**
@@ -16,12 +17,14 @@ class Robot: public SampleRobot
 {
 	IRRobotDrive myDrive;
 	IRJoystick joystick;
+	Shooter shooter;
 
 public:
 
 	Robot() :
 		myDrive(0, 1, 2, 3),
-		joystick(0)
+		joystick(0),
+		shooter(4,5,6)
 	{
 
 	}
@@ -31,6 +34,8 @@ public:
 	 */
 	void Autonomous()
 	{
+		myDrive.Drive(0.5, 0.2);
+		myDrive.Drive(0.5, -0.2);
 	}
 
 	/**

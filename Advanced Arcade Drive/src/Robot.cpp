@@ -73,20 +73,19 @@ public:
 			//Check totelift
 			toteLift.CheckLift();
 
-
-			if(gamePad.GetRawButton(1) == 1)
+			if(gamePad.GetRawButton(1))
 			{
 				toteLift.StackUp();
 			}
-			if(gamePad.GetRawButton(2) == 1)
+			if(gamePad.GetRawButton(2))
 			{
 				toteLift.StackDown();
 			}
-			if(gamePad.GetRawButton(3) == 1)
+			if(gamePad.GetRawButton(3))
 			{
 				toteLift.StackTotes();
 			}
-			if(gamePad.GetRawButton(7) == 1)
+			if(gamePad.GetRawButton(7))
  			{
  				toteLift.manualStop();
  			}
@@ -94,11 +93,11 @@ public:
  
  
  
-			if(gamePad.GetRawButton(6) == 1)
+			if(gamePad.GetRawButton(6))
  			{
  				toteLift.manualUp();
  			}
-			else if(gamePad.GetRawButton(5) == 1)
+			else if(gamePad.GetRawButton(5))
  			{
  				toteLift.manualDown();
  			}
