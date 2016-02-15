@@ -35,7 +35,10 @@ public:
 	void Autonomous()
 	{
 		myDrive.Drive(0.5, 0.2);
+		Wait(10);
 		myDrive.Drive(0.5, -0.2);
+		Wait(10);
+		myDrive.Drive(0.0, 0.0);
 	}
 
 	/**
