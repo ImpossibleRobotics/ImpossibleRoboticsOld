@@ -39,6 +39,48 @@ IRRobotDrive::IRRobotDrive(uint32_t frontLeftMotorChannel, uint32_t rearLeftMoto
 }
 
 /**
+ * Drive the motors at "outputMagnitude" and "curve".
+ * Both outputMagnitude and curve are -1.0 to +1.0 values, where 0.0 represents
+ * stopped and not turning. curve < 0 will turn left and curve > 0 will turn
+ * right.
+ *
+ * The algorithm for steering provides a constant turn radius for any normal
+ * speed range, both forward and backward. Increasing m_sensitivity causes
+ * sharper turns for fixed values of curve.
+ *
+ * This function will most likely be used in an autonomous routine.
+ *
+ * @param outputMagnitude The speed setting for the outside wheel in a turn,
+ *        forward or backwards, +1 to -1.
+ * @param curve The rate of turn, constant for different forward speeds. Set
+ *        curve < 0 for left turn or curve > 0 for right turn.
+ * Set curve = e^(-r/w) to get a turn radius r for wheelbase w of your robot.
+ * Conversely, turn radius r = -ln(curve)*w for a given value of curve and
+ * wheelbase w.
+ */
+void IRRobotDrive::Drive(float outputMagnitude, float curve) {
+  float leftOutput, rightOutput;
+
+  if (curve < 0) {
+    float value = log(-curve);
+    float ratio = (value - m_sensitivity) / (value + m_sensitivity);
+    if (ratio == 0) ratio = .0000000001;
+    leftOutput = outputMagnitude / ratio;
+    rightOutput = outputMagnitude;
+  } else if (curve > 0) {
+    float value = log(curve);
+    float ratio = (value - m_sensitivity) / (value + m_sensitivity);
+    if (ratio == 0) ratio = .0000000001;
+    leftOutput = outputMagnitude;
+    rightOutput = outputMagnitude / ratio;
+  } else {
+    leftOutput = outputMagnitude;
+    rightOutput = outputMagnitude;
+  }
+  SetOutputMotors(leftOutput, rightOutput);
+}
+
+/**
  * Arcade drive implements single stick driving.
  * Given a single Joystick, the class assumes the Y axis for the move value and
  * the X axis

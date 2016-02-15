@@ -27,6 +27,8 @@ public:
 	  void ArcadeDrive(float moveValue, float rotateValue);
 	  void ArcadeDrive(float moveValue, float rotateValue, float modifierValue);
 
+	  void Drive(float outputeMagnitude, float curve);
+
 protected:
 
 	  Talon m_frontLeftMotor;
@@ -35,6 +37,8 @@ protected:
 	  Talon m_rearRightMotor;
 
 	  uint8_t m_syncGroup = 0;
+
+	  float m_sensitivity = 0.5;
 };
 
 #endif /* IRLIBRARY_IRROBOTDRIVE_H_ */
