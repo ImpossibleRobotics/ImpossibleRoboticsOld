@@ -1,7 +1,7 @@
 /*
  * IRShooter.h
  *
- *  Created on: 15 feb. 2016
+ *  Created on: 18 feb. 2016
  *      Author: Dylan Vos
  */
 
@@ -20,6 +20,7 @@ public:
 protected:
 	Spark shootingWheel1, shootingWheel2;
 	Victor intake;
+
 };
 
 #endif /* SRC_IRSHOOTER_H_ */

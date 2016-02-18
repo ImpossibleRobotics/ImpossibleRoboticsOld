@@ -1,20 +1,16 @@
 /*
  * IRShooter.cpp
  *
- *  Created on: 15 feb. 2016
+ *  Created on: 18 feb. 2016
  *      Author: Dylan Vos
  */
 
-#include "IRShooter.h"
-
-#include "WPILIB.h"
-
-#undef max
+#include <IRShooter.h>
 
 IRShooter::IRShooter(uint32_t shootingWheel1Channel, uint32_t shootingWheel2Channel, uint32_t intakeChannel) :
-		shootingWheel1(shootingWheel1Channel),
-		shootingWheel2(shootingWheel2Channel),
-		intake(intakeChannel)
+	shootingWheel1(shootingWheel1Channel),
+	shootingWheel2(shootingWheel2Channel),
+	intake(intakeChannel)
 {
 
 }
@@ -34,4 +30,3 @@ void IRShooter::takeIn()
 	Wait(10);
 	intake.SetSpeed(0);
 }
-
