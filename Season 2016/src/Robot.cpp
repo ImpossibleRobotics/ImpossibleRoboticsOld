@@ -19,14 +19,22 @@ class Robot: public SampleRobot
 	IRJoystick joystick;
 	Shooter shooter;
 
+	SendableChooser *chooser;
+	const std::string autoNameDefault = "Default";
+	const std::string autoNameCustom = "My Auto";
+
 public:
 
 	Robot() :
 		myDrive(0, 1, 2, 3),
 		joystick(0),
-		shooter(4,5,6)
+		shooter(4,5,6),
+		chooser()
 	{
-
+		chooser = new SendableChooser();
+		chooser->AddDefault(autoNameDefault, (void*)&autoNameDefault);
+		chooser->AddObject(autoNameCustom, (void*)&autoNameCustom);
+		SmartDashboard::PutData("Auto Modes", chooser);
 	}
 
 	/**
@@ -34,6 +42,21 @@ public:
 	 */
 	void Autonomous()
 	{
+		/*
+		std::string autoSelected = *((std::string*)chooser->GetSelected());
+		//std::string autoSelected = SmartDashboard::GetString("Auto Selector", autoNameDefault);
+		std::cout << "Auto selected: " << autoSelected << std::endl;
+
+		if(autoSelected == autoNameCustom){
+			//Custom Auto goes here
+			std::cout << "Running custom Autonomous" << std::endl;
+		} else {
+			//Default Auto goes here
+			std::cout << "Running default Autonomous" << std::endl;
+		}
+		/**/
+
+
 		myDrive.Drive(0.5, 0.2);
 		Wait(10);
 		myDrive.Drive(0.5, -0.2);

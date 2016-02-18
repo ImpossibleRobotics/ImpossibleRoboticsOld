@@ -9,10 +9,12 @@
 
 #include "WPILIB.h"
 
+#undef max
+
 Shooter::Shooter(uint32_t shootingWheel1Channel, uint32_t shootingWheel2Channel, uint32_t intakeChannel) :
-	shootingWheel1(shootingWheel1Channel),
-	shootingWheel2(shootingWheel2Channel),
-	intake(intakeChannel)
+		shootingWheel1(shootingWheel1Channel),
+		shootingWheel2(shootingWheel2Channel),
+		intake(intakeChannel)
 {
 
 }
