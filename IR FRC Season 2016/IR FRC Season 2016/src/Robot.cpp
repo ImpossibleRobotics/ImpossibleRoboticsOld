@@ -26,10 +26,10 @@ class Robot: public SampleRobot
 public:
 
 	Robot() :
-		myDrive(0, 1, 2, 3),
+		myDrive(1, 2, 14, 13),
 		joystick(0),
 		gamePad(1),
-		irshooter(4,5,6),
+		irshooter(3,12,0),
 		chooser()
 	{
 		chooser = new SendableChooser();
@@ -68,7 +68,7 @@ public:
 			std::cout << "Running " + autoTestShoot << std::endl;
 			irshooter.takeIn();
 			Wait(10);
-			myDrive.Drive(0.5, 0.0);
+			myDrive.Drive(0.2, 0.0);
 			Wait(10);
 			myDrive.Drive(0.2, 0.2);
 			Wait(10);
