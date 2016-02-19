@@ -1,5 +1,6 @@
 #include "WPILib.h"
 #include "../IRLibrary/IRLib.h"
+#include "IRShooter.h"
 
 
 /**
@@ -16,21 +17,23 @@ class Robot: public SampleRobot
 {
 	IRRobotDrive myDrive;
 	IRJoystick joystick;
+	IRShooter irshooter;
 
 	SendableChooser *chooser;
-	const std::string autoNameDefault = "Default";
-	const std::string autoNameCustom = "My Auto";
+	const std::string autoTestShoot = "Test Shooter";
+	const std::string autoTestDrive = "Test Driver";
 
 public:
 
 	Robot() :
 		myDrive(0, 1, 2, 3),
 		joystick(0),
+		irshooter(4,5,6),
 		chooser()
 	{
 		chooser = new SendableChooser();
-		chooser->AddDefault(autoNameDefault, (void*)&autoNameDefault);
-		chooser->AddObject(autoNameCustom, (void*)&autoNameCustom);
+		chooser->AddDefault(autoTestShoot, (void*)&autoTestShoot);
+		chooser->AddObject(autoTestDrive, (void*)&autoTestDrive);
 		SmartDashboard::PutData("Auto Modes", chooser);
 	}
 
@@ -39,26 +42,31 @@ public:
 	 */
 	void Autonomous()
 	{
-		/*
+
 		std::string autoSelected = *((std::string*)chooser->GetSelected());
 		//std::string autoSelected = SmartDashboard::GetString("Auto Selector", autoNameDefault);
 		std::cout << "Auto selected: " << autoSelected << std::endl;
 
-		if(autoSelected == autoNameCustom){
+		if(autoSelected == autoTestDrive){
 			//Custom Auto goes here
 			std::cout << "Running custom Autonomous" << std::endl;
+
+			myDrive.Drive(0.1, 0.0);
+			Wait(10);
+			myDrive.Drive(0.0, 0.0);
+			Wait(10);
+			myDrive.Drive(0.2, 1);
+			Wait(10);
+			myDrive.Drive(0.2, -1);
+			Wait(10);
+			myDrive.Drive(0.0, 0.0);
 		} else {
 			//Default Auto goes here
 			std::cout << "Running default Autonomous" << std::endl;
+			irshooter.takeIn();
+			Wait(10);
+			irshooter.Shoot();
 		}
-		*/
-
-
-		myDrive.Drive(0.5, 0.2);
-		Wait(10);
-		myDrive.Drive(0.5, -0.2);
-		Wait(10);
-		myDrive.Drive(0.0, 0.0);
 	}
 
 	/**
