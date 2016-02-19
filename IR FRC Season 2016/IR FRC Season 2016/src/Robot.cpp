@@ -49,7 +49,7 @@ public:
 
 		if(autoSelected == autoTestDrive){
 			//Custom Auto goes here
-			std::cout << "Running custom Autonomous" << std::endl;
+			std::cout << "Running " + autoTestDrive << std::endl;
 
 			myDrive.Drive(0.1, 0.0);
 			Wait(10);
@@ -62,7 +62,7 @@ public:
 			myDrive.Drive(0.0, 0.0);
 		} else {
 			//Default Auto goes here
-			std::cout << "Running default Autonomous" << std::endl;
+			std::cout << "Running " + autoTestShoot << std::endl;
 			irshooter.takeIn();
 			Wait(10);
 			irshooter.Shoot();
