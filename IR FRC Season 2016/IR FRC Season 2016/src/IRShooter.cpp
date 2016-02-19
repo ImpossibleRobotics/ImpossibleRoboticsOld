@@ -24,6 +24,21 @@ void IRShooter::Shoot()
 	shootingWheel2.SetSpeed(0);
 }
 
+void IRShooter::CurvedShoot(float curve)
+{
+	if(curve<0 )
+	{
+		shootingWheel1.SetSpeed(1+curve);
+		shootingWheel2.SetSpeed(1);
+	}
+
+	else if(curve>0)
+	{
+		shootingWheel1.SetSpeed(1);
+		shootingWheel2.SetSpeed(1-curve);
+	}
+}
+
 void IRShooter::takeIn()
 {
 	intake.SetSpeed(1);

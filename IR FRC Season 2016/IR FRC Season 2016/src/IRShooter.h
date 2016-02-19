@@ -15,6 +15,7 @@ public:
 	IRShooter(uint32_t shootingWheel1Channel, uint32_t shootingWheel2Channel, uint32_t intakeChannel);
 
 	void Shoot();
+	void CurvedShoot(float curve);
 	void takeIn();
 
 protected:

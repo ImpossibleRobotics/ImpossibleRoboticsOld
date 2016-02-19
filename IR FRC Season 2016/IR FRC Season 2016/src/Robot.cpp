@@ -16,7 +16,7 @@
 class Robot: public SampleRobot
 {
 	IRRobotDrive myDrive;
-	IRJoystick joystick;
+	IRJoystick joystick,gamePad;
 	IRShooter irshooter;
 
 	SendableChooser *chooser;
@@ -28,6 +28,7 @@ public:
 	Robot() :
 		myDrive(0, 1, 2, 3),
 		joystick(0),
+		gamePad(1),
 		irshooter(4,5,6),
 		chooser()
 	{
@@ -60,10 +61,16 @@ public:
 			myDrive.Drive(0.2, -1);
 			Wait(10);
 			myDrive.Drive(0.0, 0.0);
-		} else {
+		}
+		else {
 			//Default Auto goes here
+			//place in front of low bar, drive forward, turn right, shoot
 			std::cout << "Running " + autoTestShoot << std::endl;
 			irshooter.takeIn();
+			Wait(10);
+			myDrive.Drive(0.5, 0.0);
+			Wait(10);
+			myDrive.Drive(0.2, 0.2);
 			Wait(10);
 			irshooter.Shoot();
 		}
@@ -77,6 +84,11 @@ public:
 		while (IsOperatorControl() && IsEnabled())
 		{
 			myDrive.ArcadeDrive(joystick); // drive with arcade style (use right stick)
+
+			if(gamePad.GetRawButton(8)) irshooter.Shoot();
+			if(gamePad.GetRawButton(7)) irshooter.takeIn();
+			if(gamePad.GetRawButton(1)) irshooter.CurvedShoot(0.2);
+			if(gamePad.GetRawButton(2)) irshooter.CurvedShoot(-0.2);
 			Wait(0.005);				// wait for a motor update time
 		}
 	}
