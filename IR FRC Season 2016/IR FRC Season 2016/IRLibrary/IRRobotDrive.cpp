@@ -35,6 +35,10 @@ IRRobotDrive::IRRobotDrive(uint32_t frontLeftMotorChannel, uint32_t rearLeftMoto
 				m_rearLeftMotor(rearLeftMotorChannel),
 				m_rearRightMotor(rearRightMotorChannel)
 {
+	m_frontLeftMotor.SetInverted(true);
+	m_frontRightMotor.SetInverted(true);
+	m_rearLeftMotor.SetInverted(true);
+	m_rearRightMotor.SetInverted(true);
 	SetOutputMotors(0.0, 0.0);
 }
 
