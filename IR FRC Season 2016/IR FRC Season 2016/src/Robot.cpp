@@ -24,7 +24,6 @@ class Robot: public SampleRobot
 	const std::string autoTestDrive = "Test Driver";
 
 public:
-
 	Robot() :
 		myDrive(0, 1, 2, 3),
 		joystick(0),
@@ -98,6 +97,9 @@ public:
 	 */
 	void Test()
 	{
+		irshooter.takeIn();
+		Wait(10);
+		irshooter.Shoot();
 	}
 };
 
