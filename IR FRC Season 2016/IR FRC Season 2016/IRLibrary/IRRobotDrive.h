@@ -17,28 +17,33 @@ public:
 	IRRobotDrive(uint32_t frontLeftMotorChannel, uint32_t rearLeftMotorChannel,
 	             uint32_t frontRightMotorChannel, uint32_t rearRightMotorChannel);
 
-	  void SetOutputMotors(float output);
-	  void SetOutputMotors(float leftOutput, float rightOutput);
+	void SetMotorsInverted(bool frontLeft, bool rearLeft, bool frontRight, bool rearRight);
+	void SetMotorsInverted(bool inverted);
 
-	  void ArcadeDrive(GenericHID *stick);
-	  void ArcadeDrive(IRJoystick *stick);
-	  void ArcadeDrive(GenericHID &stick);
-	  void ArcadeDrive(IRJoystick &stick);
-	  void ArcadeDrive(float moveValue, float rotateValue);
-	  void ArcadeDrive(float moveValue, float rotateValue, float modifierValue);
+	void SetOutputMotors(float output);
+	void SetOutputMotors(float leftOutput, float rightOutput);
 
-	  void Drive(float outputeMagnitude, float curve);
+	void ArcadeDrive(GenericHID *stick);
+	void ArcadeDrive(IRJoystick *stick);
+	void ArcadeDrive(GenericHID &stick);
+	void ArcadeDrive(IRJoystick &stick);
+	void ArcadeDrive(IRJoystick *stick, bool deadZoned);
+	void ArcadeDrive(IRJoystick &stick, bool deadZoned);
+	void ArcadeDrive(float moveValue, float rotateValue);
+	void ArcadeDrive(float moveValue, float rotateValue, float modifierValue);
+
+	void Drive(float outputeMagnitude, float curve);
 
 protected:
 
-	  Talon m_frontLeftMotor;
-	  Talon m_frontRightMotor;
-	  Talon m_rearLeftMotor;
-	  Talon m_rearRightMotor;
+	Talon m_frontLeftMotor;
+	Talon m_frontRightMotor;
+	Talon m_rearLeftMotor;
+	Talon m_rearRightMotor;
 
-	  uint8_t m_syncGroup = 0;
+	uint8_t m_syncGroup = 0;
 
-	  float m_sensitivity = 0.5;
+	float m_sensitivity = 0.5;
 };
 
 #endif /* IRLIBRARY_IRROBOTDRIVE_H_ */

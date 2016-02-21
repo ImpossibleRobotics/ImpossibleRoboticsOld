@@ -31,6 +31,7 @@ public:
 		irshooter(4,5,6),
 		chooser()
 	{
+		myDrive.SetMotorsInverted(true);
 		chooser = new SendableChooser();
 		chooser->AddDefault(autoTestShoot, (void*)&autoTestShoot);
 		chooser->AddObject(autoTestDrive, (void*)&autoTestDrive);
@@ -65,7 +66,7 @@ public:
 			//Default Auto goes here
 			//place in front of low bar, drive forward, turn right, shoot
 			std::cout << "Running " + autoTestShoot << std::endl;
-			irshooter.takeIn();
+			irshooter.TakeIn();
 			Wait(10);
 			myDrive.Drive(0.2, 0.0);
 			Wait(10);
@@ -82,12 +83,21 @@ public:
 	{
 		while (IsOperatorControl() && IsEnabled())
 		{
-			myDrive.ArcadeDrive(joystick); // drive with arcade style (use right stick)
+			myDrive.ArcadeDrive(joystick, true); // drive with arcade style (use right stick), boolean true if using deadZone
 
-			if(gamePad.GetRawButton(6)) irshooter.Shoot();
-			if(gamePad.GetRawButton(5)) irshooter.takeIn();
-			if(gamePad.GetRawButton(2)) irshooter.CurvedShoot(0.2);
-			if(gamePad.GetRawButton(3)) irshooter.CurvedShoot(-0.2);
+			if(gamePad.GetTriggerRight()) irshooter.Shoot();
+			else if(!gamePad.GetTriggerRight())irshooter.StopShoot();
+
+			if(gamePad.GetTriggerLeft()) irshooter.TakeIn();
+			else if(!gamePad.GetTriggerLeft()) irshooter.StopShoot();
+
+			if(gamePad.GetRawButton(5)) irshooter.CurvedShoot(0.2);
+
+			if(gamePad.GetRawButton(6)) irshooter.CurvedShoot(-0.2);
+
+			if(gamePad.GetRawButton(4)) irshooter.TakeOut();
+
+			if(gamePad.GetRawButton(1)) irshooter.ShootingSequence();
 			Wait(0.005);				// wait for a motor update time
 		}
 	}
@@ -97,7 +107,7 @@ public:
 	 */
 	void Test()
 	{
-		irshooter.takeIn();
+		irshooter.TakeIn();
 		Wait(10);
 		irshooter.Shoot();
 	}

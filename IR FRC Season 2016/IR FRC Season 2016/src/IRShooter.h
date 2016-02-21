@@ -15,8 +15,13 @@ public:
 	IRShooter(uint32_t shootingWheel1Channel, uint32_t shootingWheel2Channel, uint32_t intakeChannel);
 
 	void Shoot();
+	void StopShoot();
 	void CurvedShoot(float curve);
-	void takeIn();
+	void TakeIn();
+	void TakeOut();
+	void StopInTake();
+
+	void ShootingSequence();
 
 protected:
 	Spark shootingWheel1, shootingWheel2;

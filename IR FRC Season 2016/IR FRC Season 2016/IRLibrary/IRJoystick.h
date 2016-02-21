@@ -15,11 +15,16 @@ class IRJoystick
 public:
 	static const uint32_t kDefaultThrottleAxis = 3;
 
+
 	IRJoystick(uint32_t port);
 
 	float GetY();
 	float GetX();
 	float GetZ();
+
+	float GetYDeadZoned();
+	float GetXDeadZoned();
+	float GetZDeadZoned();
 
 	float GetTwist();
 	float GetRawAxis(uint32_t axis);
@@ -28,6 +33,9 @@ public:
 	float GetLeveledThrottle();
 
 	bool GetTrigger();
+	bool GetTriggerRight();
+	bool GetTriggerLeft();
+
 	bool GetTop();
 	bool GetBumper();
 
@@ -35,9 +43,13 @@ public:
 
 	int GetPOV();
 
+	float LevelOut(float value);
+
 protected:
 	Joystick joystick;
 
+	static constexpr float kTriggerDeadZone = 0.6f;
+	static constexpr float kAxisDeadZone = 0.05f;
 };
 
 #endif /* IRLIBRARY_IRJOYSTICK_H_ */

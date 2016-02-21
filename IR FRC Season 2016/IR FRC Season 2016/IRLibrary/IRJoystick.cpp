@@ -48,6 +48,32 @@ float IRJoystick::GetZ()
 	return joystick.GetZ();
 }
 
+/**
+ * Get the X value of the current joystick.
+ * This depends on the mapping of the joystick connected to the current port.
+ */
+float IRJoystick::GetXDeadZoned()
+{
+	return (LevelOut(joystick.GetX()) > kAxisDeadZone) ? joystick.GetX() : 0.0;
+}
+
+/**
+ * Get the Y value of the current joystick.
+ * This depends on the mapping of the joystick connected to the current port.
+ */
+float IRJoystick::GetYDeadZoned()
+{
+	return (LevelOut(joystick.GetY()) > kAxisDeadZone) ? joystick.GetY() : 0.0;
+}
+
+/**
+ * Get the Z value of the current joystick.
+ * This depends on the mapping of the joystick connected to the current port.
+ */
+float IRJoystick::GetZDeadZoned()
+{
+	return (LevelOut(joystick.GetZ()) > kAxisDeadZone) ? joystick.GetZ() : 0.0;
+}
 
 float IRJoystick::GetRawAxis(uint32_t axis)
 {
@@ -79,7 +105,7 @@ float IRJoystick::GetThrottle()
  */
 float IRJoystick::GetLeveledThrottle()
 {
-	return (joystick.GetThrottle() - 1) / -2;
+	return LevelOut(joystick.GetThrottle());
 }
 
 /**
@@ -100,6 +126,18 @@ bool IRJoystick::GetRawButton(uint32_t button)
 bool IRJoystick::GetTrigger()
 {
 	return joystick.GetTrigger();
+}
+
+bool IRJoystick::GetTriggerRight()
+{
+	if(GetRawAxis(3) > kTriggerDeadZone) return true;
+	return false;
+}
+
+bool IRJoystick::GetTriggerLeft()
+{
+	if(GetRawAxis(2) > kTriggerDeadZone) return true;
+	return false;
 }
 
 /**
@@ -127,4 +165,9 @@ bool IRJoystick::GetBumper()
 int IRJoystick::GetPOV()
 {
 	return joystick.GetPOV();
+}
+
+float IRJoystick::LevelOut(float value)
+{
+	return (value - 1) / -2;
 }

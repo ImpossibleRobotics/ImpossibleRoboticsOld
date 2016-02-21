@@ -35,11 +35,20 @@ IRRobotDrive::IRRobotDrive(uint32_t frontLeftMotorChannel, uint32_t rearLeftMoto
 				m_rearLeftMotor(rearLeftMotorChannel),
 				m_rearRightMotor(rearRightMotorChannel)
 {
-	m_frontLeftMotor.SetInverted(true);
-	m_frontRightMotor.SetInverted(true);
-	m_rearLeftMotor.SetInverted(true);
-	m_rearRightMotor.SetInverted(true);
 	SetOutputMotors(0.0, 0.0);
+}
+
+void IRRobotDrive::SetMotorsInverted(bool inverted)
+{
+	SetMotorsInverted(inverted, inverted, inverted, inverted);
+}
+
+void IRRobotDrive::SetMotorsInverted(bool frontLeft, bool rearLeft, bool frontRight, bool rearRight)
+{
+	m_frontLeftMotor.SetInverted(frontLeft);
+	m_frontRightMotor.SetInverted(frontRight);
+	m_rearLeftMotor.SetInverted(rearLeft);
+	m_rearRightMotor.SetInverted(rearRight);
 }
 
 /**
@@ -126,7 +135,7 @@ void IRRobotDrive::ArcadeDrive(GenericHID &stick)
  */
 void IRRobotDrive::ArcadeDrive(IRJoystick *stick)
 {
-	ArcadeDrive(stick->GetY(), stick->GetX());
+	ArcadeDrive(stick->GetY(), stick->GetX(), stick->GetLeveledThrottle());
 }
 
 /**
@@ -141,7 +150,37 @@ void IRRobotDrive::ArcadeDrive(IRJoystick *stick)
  */
 void IRRobotDrive::ArcadeDrive(IRJoystick &stick)
 {
-	ArcadeDrive(stick.GetY(), stick.GetX());
+	ArcadeDrive(stick.GetY(), stick.GetX(), stick.GetLeveledThrottle());
+}
+
+/**
+ * Arcade drive implements single stick driving.
+ * Given a single IRJoystick, the class assumes the Y axis for the move value and
+ * the X axis
+ * for the rotate value.
+ * (Should add more information here regarding the way that arcade drive works.)
+ * @param stick The IRjoystick to use for Arcade single-stick driving. The Y-axis
+ * will be selected
+ * for forwards/backwards and the X-axis will be selected for rotation rate.
+ */
+void IRRobotDrive::ArcadeDrive(IRJoystick *stick, bool deadZoned)
+{
+	ArcadeDrive((deadZoned) ? stick->GetYDeadZoned() : stick->GetY(), (deadZoned) ? stick->GetYDeadZoned() : stick->GetX(), stick->GetLeveledThrottle());
+}
+
+/**
+ * Arcade drive implements single stick driving.
+ * Given a single IRJoystick, the class assumes the Y axis for the move value and
+ * the X axis
+ * for the rotate value.
+ * (Should add more information here regarding the way that arcade drive works.)
+ * @param stick The IRjoystick to use for Arcade single-stick driving. The Y-axis
+ * will be selected
+ * for forwards/backwards and the X-axis will be selected for rotation rate.
+ */
+void IRRobotDrive::ArcadeDrive(IRJoystick &stick, bool deadZoned)
+{
+	ArcadeDrive((deadZoned) ? stick.GetYDeadZoned() : stick.GetY(), (deadZoned) ? stick.GetXDeadZoned() : stick.GetX(), stick.GetLeveledThrottle());
 }
 
 /**
