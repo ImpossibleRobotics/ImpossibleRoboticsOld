@@ -48,8 +48,8 @@ public:
 protected:
 	Joystick joystick;
 
-	static constexpr float kTriggerDeadZone = 0.6f;
-	static constexpr float kAxisDeadZone = 0.05f;
+	static constexpr float kTriggerDeadZone = 0.6;
+	static constexpr float kAxisDeadZone = 0.05;
 };
 
 #endif /* IRLIBRARY_IRJOYSTICK_H_ */

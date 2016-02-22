@@ -16,12 +16,11 @@ public:
 
 	void Shoot();
 	void StopShoot();
+	void ShootingSequence();
 	void CurvedShoot(float curve);
 	void TakeIn();
 	void TakeOut();
 	void StopInTake();
-
-	void ShootingSequence();
 
 protected:
 	Spark shootingWheel1, shootingWheel2;

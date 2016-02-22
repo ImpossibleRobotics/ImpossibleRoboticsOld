@@ -130,13 +130,15 @@ bool IRJoystick::GetTrigger()
 
 bool IRJoystick::GetTriggerRight()
 {
-	if(GetRawAxis(3) > kTriggerDeadZone) return true;
+	if(GetRawAxis(3) > 0.6)
+	return true;
 	return false;
 }
 
 bool IRJoystick::GetTriggerLeft()
 {
-	if(GetRawAxis(2) > kTriggerDeadZone) return true;
+	if(GetRawAxis(2) > 0.6)
+	return true;
 	return false;
 }
 

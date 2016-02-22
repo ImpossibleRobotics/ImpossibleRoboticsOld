@@ -35,7 +35,7 @@ public:
 		chooser = new SendableChooser();
 		chooser->AddDefault(autoTestShoot, (void*)&autoTestShoot);
 		chooser->AddObject(autoTestDrive, (void*)&autoTestDrive);
-		SmartDashboard::PutData("Auto Modes", chooser);
+		//SmartDashboard::PutData("Auto Modes", chooser);
 	}
 
 	/**
@@ -80,10 +80,11 @@ public:
 	 * Runs the motors with arcade steering.
 	 */
 	void OperatorControl()
+
 	{
 		while (IsOperatorControl() && IsEnabled())
 		{
-			myDrive.ArcadeDrive(joystick, true); // drive with arcade style (use right stick), boolean true if using deadZone
+			myDrive.ArcadeDrive(joystick, false); // drive with arcade style (use right stick), boolean true if using deadZone
 
 			if(gamePad.GetTriggerRight()) irshooter.Shoot();
 			else if(!gamePad.GetTriggerRight())irshooter.StopShoot();
@@ -96,8 +97,10 @@ public:
 			if(gamePad.GetRawButton(6)) irshooter.CurvedShoot(-0.2);
 
 			if(gamePad.GetRawButton(4)) irshooter.TakeOut();
+			else if(!gamePad.GetRawButton(4)) irshooter.StopInTake();
 
 			if(gamePad.GetRawButton(1)) irshooter.ShootingSequence();
+
 			Wait(0.005);				// wait for a motor update time
 		}
 	}
