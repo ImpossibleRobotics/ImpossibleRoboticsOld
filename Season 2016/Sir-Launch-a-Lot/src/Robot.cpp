@@ -91,7 +91,7 @@ public:
 
 			if(gamePad.GetTriggerLeft()) irshooter.TakeIn();
 			else if(gamePad.GetRawButton(4)) irshooter.TakeOut();
-			else if(!gamePad.GetTriggerLeft()) irshooter.StopInTake();
+			else if(!gamePad.GetTriggerLeft() && !gamePad.GetRawButton(4)) irshooter.StopInTake();
 
 			if(gamePad.GetRawButton(5)) irshooter.CurvedShoot(0.2);
 
