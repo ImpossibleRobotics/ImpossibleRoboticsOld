@@ -32,20 +32,20 @@ public:
 		chooser()
 	{
 		myDrive.SetMotorsInverted(true);
+	}
+
+	void RobotInit()
+	{
 		chooser = new SendableChooser();
 		chooser->AddDefault(autoTestShoot, (void*)&autoTestShoot);
 		chooser->AddObject(autoTestDrive, (void*)&autoTestDrive);
-		//SmartDashboard::PutData("Auto Modes", chooser);
+		SmartDashboard::PutData("Auto Modes", chooser);
 	}
 
-	/**
-	 * Drive left & right motors for 2 seconds then stop
-	 */
 	void Autonomous()
 	{
 
 		std::string autoSelected = *((std::string*)chooser->GetSelected());
-		//std::string autoSelected = SmartDashboard::GetString("Auto Selector", autoNameDefault);
 		std::cout << "Auto selected: " << autoSelected << std::endl;
 
 		if(autoSelected == autoTestDrive){
@@ -84,20 +84,18 @@ public:
 	{
 		while (IsOperatorControl() && IsEnabled())
 		{
-			myDrive.ArcadeDrive(joystick, false); // drive with arcade style (use right stick), boolean true if using deadZone
+			myDrive.ArcadeDrive(joystick, true); // drive with arcade style (use right stick), boolean true if using deadZone
 
 			if(gamePad.GetTriggerRight()) irshooter.Shoot();
 			else if(!gamePad.GetTriggerRight())irshooter.StopShoot();
 
 			if(gamePad.GetTriggerLeft()) irshooter.TakeIn();
+			else if(gamePad.GetRawButton(4)) irshooter.TakeOut();
 			else if(!gamePad.GetTriggerLeft()) irshooter.StopInTake();
 
 			if(gamePad.GetRawButton(5)) irshooter.CurvedShoot(0.2);
 
 			if(gamePad.GetRawButton(6)) irshooter.CurvedShoot(-0.2);
-
-			if(gamePad.GetRawButton(4)) irshooter.TakeOut();
-			else if(!gamePad.GetRawButton(4)) irshooter.StopInTake();
 
 			if(gamePad.GetRawButton(1)) irshooter.ShootingSequence();
 

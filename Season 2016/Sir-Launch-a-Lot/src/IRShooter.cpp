@@ -29,14 +29,14 @@ void IRShooter::StopShoot()
 
 void IRShooter::ShootingSequence()
 {
-	Shoot();
 	intake.Set(-0.7);
-	Wait(1);
+	Wait(0.5);
+	Shoot();
 	StopInTake();
+	Wait(0.75);
 	TakeIn();
-	Wait(4);
+	Wait(0.25);
 	StopInTake();
-	Wait(1);
 	StopShoot();
 }
 

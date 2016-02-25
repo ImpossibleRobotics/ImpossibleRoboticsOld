@@ -49,7 +49,7 @@ protected:
 	Joystick joystick;
 
 	static constexpr float kTriggerDeadZone = 0.6;
-	static constexpr float kAxisDeadZone = 0.05;
+	static constexpr float kAxisDeadZone = 0.001;
 };
 
 #endif /* IRLIBRARY_IRJOYSTICK_H_ */
