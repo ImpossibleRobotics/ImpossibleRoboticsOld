@@ -28,8 +28,7 @@ public:
 		myDrive(0, 1, 2, 3),
 		joystick(0),
 		gamePad(1),
-		irshooter(4,5,6),
-		chooser()
+		irshooter(4,5,6)
 	{
 		myDrive.SetMotorsInverted(true);
 	}

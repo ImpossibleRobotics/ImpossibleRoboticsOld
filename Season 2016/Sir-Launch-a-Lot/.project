@@ -3,6 +3,7 @@
 	<name>Sir-Launch-a-Lot</name>
 	<comment></comment>
 	<projects>
+		<project>Impossible-robotics Library</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -25,4 +26,11 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 		<nature>edu.wpi.first.wpilib.plugins.core.nature.FRCProjectNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>IRLibrary</name>
+			<type>2</type>
+			<location>C:/Users/Dylan/workspace/Impossible-robotics Library/IRLibrary</location>
+		</link>
+	</linkedResources>
 </projectDescription>

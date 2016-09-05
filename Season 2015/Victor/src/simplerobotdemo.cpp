@@ -1,7 +1,7 @@
 #include "WPILib.h"
 #include "ToteLifter.h"
 
-class Robot: public SampleRobot
+class SimpleRobotDemo: public SimpleRobot
 {
 	Talon frontLeft, frontRight, rearLeft, rearRight;
 	Joystick arcadeStick, gamePad;
@@ -20,15 +20,23 @@ class Robot: public SampleRobot
 	double TempValueSave = 0;
 	double CoastValue = 0.1;
 
+	/*
+	 * 1: Grijs	3: Blauw
+	 * 2: Wit	4: Geel
+	 *
+	 *
+	 *
+	 */
+
 public:
-	Robot() :
+	SimpleRobotDemo() :
 		frontLeft(1),
 		frontRight(3),
-		rearLeft(0),
-		rearRight(2),
-		arcadeStick(0),
-		gamePad(1),
-		toteLift(4, 0, 1, 2),
+		rearLeft(2),
+		rearRight(4),
+		arcadeStick(1),
+		gamePad(2),
+		toteLift(5, 0, 1, 2),
 		autoTimer(),
 		coastTimer()
 	{
@@ -206,4 +214,4 @@ public:
 
 };
 
-START_ROBOT_CLASS(Robot);
+START_ROBOT_CLASS(SimpleRobotDemo);
